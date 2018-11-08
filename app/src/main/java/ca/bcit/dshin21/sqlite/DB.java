@@ -32,43 +32,133 @@ public class DB extends SQLiteOpenHelper {
 
     private String createTable() {
         String sql = "";
-        sql += "CREATE TABLE NAME (";
+        sql += "CREATE TABLE People (";
         sql += "_id INTEGER PRIMARY KEY AUTOINCREMENT, ";
-        sql += "NAME TEXT);";
+        sql += "FirstName TEXT, ";
+        sql += "LastName TEXT, ";
+        sql += "BirthDate TEXT, ";
+        sql += "Street TEXT, ";
+        sql += "City TEXT, ";
+        sql += "Province TEXT, ";
+        sql += "PostalCode TEXT, ";
+        sql += "Country TEXT, ";
+        sql += "Latitude INTEGER, ";
+        sql += "Longitude INTEGER, ";
+        sql += "IsNaughty TEXT, ";
+        sql += "DateCreated TEXT";
+        sql += ");";
 
         return sql;
     }
 
-    public long insertName(String name) {
+    public long insertEntry(String firstName, String lastName, String birthday, String street, String city, String province,
+                            String postalCode, String country, String lat, String lng, String isNaughty, String dateCreated) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("NAME", name);
-        long id = db.insert("NAME", null, values);
+        values.put("FirstName", firstName);
+        values.put("LastName", lastName);
+        values.put("BirthDate", birthday);
+        values.put("Street", street);
+        values.put("City", city);
+        values.put("Province", province);
+        values.put("PostalCode", postalCode);
+        values.put("Country", country);
+        values.put("Latitude", lat);
+        values.put("Longitude", lng);
+        values.put("IsNaughty", isNaughty);
+        values.put("DateCreated", dateCreated);
+        long id = db.insert("People", null, values);
         db.close();
 
         return id;
     }
 
-    public List<String> getNames() {
-        List<String> names = new ArrayList<>();
+    public List<String> getFirstName() {
+        String selectQuery = "SELECT FirstName FROM " + "People";
 
-        // Select All Query
-        String selectQuery = "SELECT * FROM " + "NAME";
+        return getHelper(selectQuery, "FirstName");
+    }
+
+    public List<String> getLastName() {
+        String selectQuery = "SELECT LastName FROM " + "People";
+
+        return getHelper(selectQuery, "LastName");
+    }
+
+    public List<String> getBirthDay() {
+        String selectQuery = "SELECT BirthDate FROM " + "People";
+
+        return getHelper(selectQuery, "BirthDate");
+    }
+
+    public List<String> getStreet() {
+        String selectQuery = "SELECT Street FROM " + "People";
+
+        return getHelper(selectQuery, "Street");
+    }
+
+    public List<String> getCity() {
+        String selectQuery = "SELECT City FROM " + "People";
+
+        return getHelper(selectQuery, "City");
+    }
+
+    public List<String> getProvince() {
+        String selectQuery = "SELECT Province FROM " + "People";
+
+        return getHelper(selectQuery, "Province");
+    }
+
+    public List<String> getPostalCode() {
+        String selectQuery = "SELECT PostalCode FROM " + "People";
+
+        return getHelper(selectQuery, "PostalCode");
+    }
+
+    public List<String> getCountry() {
+        String selectQuery = "SELECT Country FROM " + "People";
+
+        return getHelper(selectQuery, "Country");
+    }
+
+    public List<String> getLatitude() {
+        String selectQuery = "SELECT Latitude FROM " + "People";
+
+        return getHelper(selectQuery, "Latitude");
+    }
+
+    public List<String> getLongitude() {
+        String selectQuery = "SELECT Longitude FROM " + "People";
+
+        return getHelper(selectQuery, "Longitude");
+    }
+
+    public List<String> getIsNaughty() {
+        String selectQuery = "SELECT IsNaughty FROM " + "People";
+
+        return getHelper(selectQuery, "IsNaughty");
+    }
+
+    public List<String> getDateCreated() {
+        String selectQuery = "SELECT DateCreated FROM " + "People";
+
+        return getHelper(selectQuery, "DateCreated");
+    }
+
+    public List<String> getHelper(String selectQuery, String columnName) {
+        List<String> temp = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                names.add(cursor.getString(cursor.getColumnIndex("NAME")));
+                temp.add(cursor.getString(cursor.getColumnIndex(columnName)));
             } while (cursor.moveToNext());
         }
 
-        // close db connection
         db.close();
 
-        // return notes list
-        return names;
+        return temp;
     }
 }
