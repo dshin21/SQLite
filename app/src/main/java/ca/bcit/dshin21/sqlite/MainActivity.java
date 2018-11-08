@@ -8,23 +8,18 @@ import android.widget.TextView;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-//    sql += "CREATE TABLE NAME (";
-//    sql += "_id INTEGER PRIMARY KEY AUTOINCREMENT, ";
-//    sql += "FirstName TEXT, ";
-//    sql += "LastName TEXT, ";
-//    sql += "BirthDate NUMERIC, ";
-//    sql += "Street TEXT, ";
-//    sql += "City TEXT, ";
-//    sql += "Province TEXT, ";
-//    sql += "PostalCode TEXT, ";
-//    sql += "Country TEXT, ";
-//    sql += "Latitude INTEGER, ";
-//    sql += "Longitude INTEGER, ";
-//    sql += "IsNaughty TEXT, ";
-//    sql += "DateCreated NUMERIC";
-//    sql += ");";
-
+/*
+TODO:
+- refactor
+- icon
+- theme
+- actionbar
+    - search
+    - add
+    - overflow
+        - update
+        - delete
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +139,5 @@ public class MainActivity extends AppCompatActivity {
         three.setText(temps[2]);
         four.setText(temps[3]);
         five.setText(temps[4]);
-
     }
 }
